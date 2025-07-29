@@ -58,7 +58,7 @@ ifeq ($(WITH_OPENCV_VIDEO), YES)
 
 endif
 
-include $(AREA_DETECTOR)/ADCore/ADApp/commonLibraryMakefile
+include $(ADCORE)/ADApp/commonLibraryMakefile
 
 include $(TOP)/configure/RULES
 #----------------------------------------
