@@ -214,7 +214,8 @@ of desired objects to find, the blur degree (3 or 5 is usually best), a
 threshold value, and an upper and lower pixel area threshold for the
 objects. Play around with these numbers until the desired objects are
 detected. The centroid centers are then outputted into the 'Output' PV
-values
+values. The "Reverse Y" option, when set to 1, will flip the Y coordinate
+output to match, for example, what NDOverlay is expecting.
 
 **Video Record**
 

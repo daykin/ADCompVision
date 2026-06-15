@@ -142,9 +142,9 @@ function, along with descriptions for each function
   <tr>
   <th>FindObjectCentroids
   </th>
-  <th>5
+  <th>6
   </th>
-  <th>[Num Largest Contours (Int), Blur Degree (Int), Threshold Value (Int), Upper Size Threshold (Int), Lower Size Threshold (Int)]
+  <th>[Num Largest Contours (Int), Blur Degree (Int), Threshold Value (Int), Upper Size Threshold (Int), Lower Size Threshold (Int), Reverse Y (Int)]
   </th>
   <th>2-10
   </th>

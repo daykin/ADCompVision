@@ -612,6 +612,7 @@ ADCVStatus_t NDPluginCVHelper::find_centroids(Mat& img, double* inputs, double* 
     int thresholdVal = (int)inputs[2];
     double upperSizeThreshold = inputs[3];
     double lowerSizeThreshold = inputs[4];
+    int reverseY = (int)inputs[5];
     try {
         // first we need to convert to grayscale if necessary
         GaussianBlur(img, img, Size(blurDegree, blurDegree), 0);
@@ -661,8 +662,15 @@ ADCVStatus_t NDPluginCVHelper::find_centroids(Mat& img, double* inputs, double* 
         int counter = 0;
         for (k = 0; k < contour_centroids.size(); k++) {
             outputs[counter] = contour_centroids[k].x;
-            if (contour_centroids[k].y != 0)
-                outputs[counter + 1] = img.size().height - contour_centroids[k].y;
+            if (contour_centroids[k].y != 0) {
+                //to preserve old behavior, "reverse" aspect is just the plain Y value
+                if (reverseY) {
+                    outputs[counter + 1] = contour_centroids[k].y;
+                }
+                else { //this is the old behavior
+                    outputs[counter + 1] = img.size().height - contour_centroids[k].y;
+                }
+            }
             counter = counter + 2;
             if (counter >= NUM_OUTPUTS) break;
         }
@@ -1267,13 +1275,14 @@ ADCVStatus_t NDPluginCVHelper::get_centroid_finder_description(string* inputDesc
                                                                string* outputDesc,
                                                                string* description) {
     ADCVStatus_t status = cvHelperSuccess;
-    int numInput = 5;
+    int numInput = 6;
     int numOutput = 10;
     inputDesc[0] = "Num Largest Contours (Int 1 - 5)";
     inputDesc[1] = "Blur degree (Int) Ex. 3";
     inputDesc[2] = "Threshold Value (Int) Ex. 100";
     inputDesc[3] = "Upper Size Threshold Ex. 600*400";
     inputDesc[4] = "Lower Size Threshold Ex. 400";
+    inputDesc[5] = "Reverse Y";
     outputDesc[0] = "Centroid 1 X";
     outputDesc[1] = "Centroid 1 Y";
     outputDesc[2] = "Centroid 2 X";
